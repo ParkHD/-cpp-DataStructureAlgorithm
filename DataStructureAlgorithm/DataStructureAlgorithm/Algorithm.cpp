@@ -3,89 +3,90 @@
 #include <list>
 #include <stack>
 #include <queue>
-#include "Vector.h"
-#include "List.h"
-#include "Stack.h"
-#include "Queue.h"
 
 using namespace std;
 
 struct Vertex
 {
-	//int data;
+	// int data;
 };
-vector<Vertex> vertices;
-vector<vector<int>> adjacent;
 
-vector<bool> visited;
+vector<Vertex> vertices;
+vector<vector<int>> adjacent;  // 인접행렬
 
 void CreateGraph()
 {
 	vertices.resize(6);
-	adjacent = vector<vector<int>>(6);
+	adjacent = vector<vector<int>>(6, vector<int>(6, -1));
 
-	//// 인접리스트
-	//adjacent[0].push_back(1);
-	//adjacent[0].push_back(3);
-	//adjacent[1].push_back(0);
-	//adjacent[1].push_back(2);
-	//adjacent[1].push_back(3);
-	//adjacent[3].push_back(4);
-	//adjacent[5].push_back(4);
+	adjacent[0][1] = 15;
+	adjacent[0][3] = 35;
 
-	// 인접행렬
-	adjacent = vector<vector<int>>
-	{
-		{ 0, 1, 0, 1, 0, 0},
-		{ 1, 0, 1, 1, 0, 0},
-		{ 0, 0, 0, 0, 0, 0},
-		{ 0, 0, 0, 0, 1, 0},
-		{ 0, 0, 0, 0, 0, 0},
-		{ 0, 0, 0, 0, 1, 0},
-	};
+	adjacent[1][0] = 15;
+	adjacent[1][2] = 5;
+	adjacent[1][3] = 10;
+
+	adjacent[3][4] = 5;
+	adjacent[5][4] = 5;
 }
-
-void Dfs(int here)
+void Dijikstra(int here)
 {
-	visited[here] = true;
-	cout << "Visited :" << here << endl;
-
-	//// 인접 리스트 virsion
-	//for (int i = 0; i < adjacent[here].size(); i++)
-	//{
-	//	// here에서 갈수 있는곳 추출
-	//	int there = adjacent[here][i];
-	//	if (visited[there] == false)
-	//		Dfs(there);
-	//}
-
-	// 인접 행렬 virsion
-	for (int there = 0; there < 6; there++)
+	struct VertexCost
 	{
-		if (adjacent[here][there] == 0)
-			continue;
-		if (visited[there] == false)
+		int vertex;
+		int cost;
+	};
+
+	list<VertexCost> discovered;
+	vector<int> best(6, INT32_MAX); // 각 정점별로 지금까지 발견한 최소 거리
+	vector<int> parent(6, -1);
+
+	discovered.push_back(VertexCost{ here, 0 });
+	best[here] = 0;
+	parent[here] = here;
+
+	while (discovered.empty() == false)
+	{
+		// 제일 좋은 후보를 찾는다
+		list<VertexCost>::iterator bestIt;
+		int bestCost = INT32_MAX;
+
+		for (auto it = discovered.begin(); it != discovered.end(); it++)
 		{
-			Dfs(there);
-			
+			const int cost = it->cost;
+
+			if (cost < bestCost )
+			{
+				bestCost = cost;
+				bestIt = it;
+			}
+		}
+		int cost = bestIt->cost;
+		here = bestIt->vertex;
+		discovered.erase(bestIt);
+
+		if (best[here] < cost)
+			continue;
+
+
+		for (int there = 0; there < 6; there++)
+		{
+			// 연결되지 않았으면 스킵.
+			if (adjacent[here][there] == -1)
+				continue;
+			int nextCost = best[here] + adjacent[here][there];
+			if (nextCost >= best[there])
+				continue;
+
+			discovered.push_back(VertexCost{ there, nextCost });
+			best[there] = nextCost;
+			parent[there] = here;
 		}
 	}
+}
 
-	visited[here] = false;
-}
-void DfsAll()
-{
-	visited = vector<bool>(6, false);
-	for (int i = 0; i < 6; i++)
-	{
-		cout << "i : " << i << endl;
-		if (visited[i] == false)
-			Dfs(i);
-	}
-		
-}
 int main()
 {
 	CreateGraph();
-	DfsAll();
+	Dijikstra(0);
 }

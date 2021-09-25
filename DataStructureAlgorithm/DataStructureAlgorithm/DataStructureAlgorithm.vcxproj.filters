@@ -35,5 +35,11 @@
     <ClInclude Include="createGraph.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
+    <ClInclude Include="DFS.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="BFS.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

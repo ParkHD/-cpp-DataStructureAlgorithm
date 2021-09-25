@@ -1,3 +1,8 @@
-﻿  Player.cpp
-D:\GitData\DataStructure\DataStructureAlgorithm\Maze\Player.cpp(56,20): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+﻿  pch.cpp
+  Board.cpp
+  ConsoleHelper.cpp
+  Maze.cpp
+  Player.cpp
+D:\GitData\DataStructure\DataStructureAlgorithm\Maze\Player.cpp(82,20): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  코드를 생성하고 있습니다...
   Maze.vcxproj -> D:\GitData\DataStructure\DataStructureAlgorithm\Debug\Maze.exe
