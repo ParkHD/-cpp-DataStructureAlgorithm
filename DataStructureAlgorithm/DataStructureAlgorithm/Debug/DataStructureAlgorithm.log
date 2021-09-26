@@ -1,2 +1,6 @@
 ﻿  Algorithm.cpp
+D:\GitData\DataStructure\DataStructureAlgorithm\DataStructureAlgorithm\Algorithm.cpp(48,13): warning C4018: '>=': signed 또는 unsigned가 일치하지 않습니다.
+D:\GitData\DataStructure\DataStructureAlgorithm\DataStructureAlgorithm\Algorithm.cpp(37): message : 클래스 템플릿 멤버 함수 'void PriorityQueue<int,std::vector<int,std::allocator<int>>,std::greater<int>>::pop(void)'을(를) 컴파일하는 중입니다.
+D:\GitData\DataStructure\DataStructureAlgorithm\DataStructureAlgorithm\Algorithm.cpp(90): message : 컴파일되는 함수 템플릿 인스턴스화 'void PriorityQueue<int,std::vector<int,std::allocator<int>>,std::greater<int>>::pop(void)'에 대한 참조를 확인하세요.
+D:\GitData\DataStructure\DataStructureAlgorithm\DataStructureAlgorithm\Algorithm.cpp(80): message : 컴파일되는 클래스 템플릿 인스턴스화 'PriorityQueue<int,std::vector<int,std::allocator<int>>,std::greater<int>>'에 대한 참조를 확인하세요.
   DataStructureAlgorithm.vcxproj -> D:\GitData\DataStructure\DataStructureAlgorithm\Debug\DataStructureAlgorithm.exe
