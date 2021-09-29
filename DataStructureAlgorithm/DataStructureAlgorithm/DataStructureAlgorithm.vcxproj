@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClCompile Include="Algorithm.cpp" />
     <ClCompile Include="BinarySearchTree.cpp" />
+    <ClCompile Include="RedBlackTree.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BinarySearch.h" />
@@ -150,6 +151,7 @@
     <ClInclude Include="Dijikstra.h" />
     <ClInclude Include="PriorityQueue.h" />
     <ClInclude Include="Queue.h" />
+    <ClInclude Include="RedBlackTree.h" />
     <ClInclude Include="Stack.h" />
     <ClInclude Include="Tree.h" />
     <ClInclude Include="Vector.h" />
