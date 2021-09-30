@@ -13,18 +13,28 @@ int main()
 {
 	RedBlackTree bst;
 	bst.Insert(30);
-	bst.Insert(10);
-	bst.Insert(20);
-	bst.Insert(25);
-	bst.Insert(40);
-	bst.Insert(50);
-	bst.Insert(15);
-	bst.Insert(60);
-	bst.Insert(5);
-	bst.Insert(22);
-	bst.Insert(23);
 	bst.Print();
-	bst.Insert(21);
+	this_thread::sleep_for(1s);
+
+	bst.Insert(10);
+	bst.Print();
+	this_thread::sleep_for(1s);
+
+	bst.Insert(20);
+	bst.Print();
+	this_thread::sleep_for(1s);
+
+	bst.Insert(25);
+	bst.Print();
+	this_thread::sleep_for(1s);
+
+	bst.Delete(20);
+	bst.Print();
+	this_thread::sleep_for(1s);
+
+	bst.Delete(10);
+	bst.Print();
+	this_thread::sleep_for(1s);
 	
 
 	//bst.Insert(30);

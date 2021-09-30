@@ -28,7 +28,7 @@ public:
 
 	
 
-	void Print() { Print(_root, 10, 0); }
+	void Print();
 	void Print(int x, int y) { Print(_root, x, y); }
 	void Print(Node* node, int x, int y);
 	void Print_Inorder() { Print_Inorder(_root); }
@@ -48,6 +48,7 @@ public:
 
 	void Delete(int key);
 	void Delete(Node* node);
+	void DeleteFixup(Node* node);
 
 	void Replace(Node* u, Node* v);
 
