@@ -51,6 +51,7 @@ void InsertionSort(vector<int>& v)
 {
 	const int n = (int)v.size();
 
+<<<<<<< HEAD
 	for (int i = 1; i < n; i++)
 	{
 		int insertData = v[i];
@@ -105,3 +106,10 @@ int main()
 	int x = 3;
 
 }
+=======
+	bst.Delete(10);
+	bst.Print();
+	this_thread::sleep_for(1s);
+	
+}
+>>>>>>> 38dfa572f2d421dc7ca22ee996534620adc76220

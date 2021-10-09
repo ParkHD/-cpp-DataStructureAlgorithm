@@ -18,7 +18,7 @@ void CreateGraph()
 	vertices.resize(6);
 	adjacent = vector<vector<int>>(6);
 
-	//// ÀÎÁ¢¸®½ºÆ®
+	//// case1) ì¸ì ‘ë¦¬ìŠ¤íŠ¸
 	//adjacent[0].push_back(1);
 	//adjacent[0].push_back(3);
 	//adjacent[1].push_back(0);
@@ -27,7 +27,7 @@ void CreateGraph()
 	//adjacent[3].push_back(4);
 	//adjacent[5].push_back(4);
 
-	// ÀÎÁ¢Çà·Ä
+	// ì¸ì ‘í–‰ë ¬
 	adjacent = vector<vector<int>>
 	{
 		{ 0, 1, 0, 1, 0, 0},
@@ -44,16 +44,16 @@ void Dfs(int here)
 	visited[here] = true;
 	cout << "Visited :" << here << endl;
 
-	//// ÀÎÁ¢ ¸®½ºÆ® virsion
+	//// ì¸ì ‘ ë¦¬ìŠ¤íŠ¸ virsion
 	//for (int i = 0; i < adjacent[here].size(); i++)
 	//{
-	//	// here¿¡¼­ °¥¼ö ÀÖ´Â°÷ ÃßÃâ
+	//	// hereì—ì„œ ê°ˆìˆ˜ ìˆëŠ”ê³³ ì¶”ì¶œ
 	//	int there = adjacent[here][i];
 	//	if (visited[there] == false)
 	//		Dfs(there);
 	//}
 
-	// ÀÎÁ¢ Çà·Ä virsion
+	// ì¸ì ‘ í–‰ë ¬ virsion
 	for (int there = 0; there < 6; there++)
 	{
 		if (adjacent[here][there] == 0)
