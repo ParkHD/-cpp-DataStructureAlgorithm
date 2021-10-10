@@ -46,12 +46,11 @@ void SelectionSort(vector<int>& v)
 	}
 }
 
-// 삽입정렬 중요
+// 삽입정렬 중요!!
 void InsertionSort(vector<int>& v)
 {
 	const int n = (int)v.size();
 
-<<<<<<< HEAD
 	for (int i = 1; i < n; i++)
 	{
 		int insertData = v[i];
