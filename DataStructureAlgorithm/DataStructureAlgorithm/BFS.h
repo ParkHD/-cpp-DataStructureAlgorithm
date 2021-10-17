@@ -13,7 +13,7 @@ using namespace std;
 
 struct Vertex
 {
-	//int data;
+	//int data ì…ë ¥ë°ì´í„°;
 };
 vector<Vertex> vertices;
 vector<vector<int>> adjacent;
@@ -25,7 +25,7 @@ void CreateGraph()
 	vertices.resize(6);
 	adjacent = vector<vector<int>>(6);
 
-	//// ÀÎÁ¢¸®½ºÆ®
+	//// ì¸ì ‘ë¦¬ìŠ¤íŠ¸
 	//adjacent[0].push_back(1);
 	//adjacent[0].push_back(3);
 	//adjacent[1].push_back(0);
@@ -34,7 +34,7 @@ void CreateGraph()
 	//adjacent[3].push_back(4);
 	//adjacent[5].push_back(4);
 
-	// ÀÎÁ¢Çà·Ä
+	// ì¸ì ‘í–‰ë ¬
 	adjacent = vector<vector<int>>
 	{
 		{ 0, 1, 0, 1, 0, 0},
@@ -47,12 +47,12 @@ void CreateGraph()
 }
 void Bfs(int here)
 {
-	// ´©±¸¿¡ ÀÇÇØ ¹ß°ßµÇ¾ú´ÂÁö ?
+	// ëˆ„êµ¬ì— ì˜í•´ ë°œê²¬ë˜ì—ˆëŠ”ì§€ ?
 	vector<int> parent(6, -1);
-	// ½ÃÀÛÁ¡¿¡¼­ ¾ó¸¸Å­ ¶³¾îÁ® ÀÖ´ÂÁö?
+	// ì‹œì‘ì ì—ì„œ ì–¼ë§Œí¼ ë–¨ì–´ì ¸ ìˆëŠ”ì§€?
 	vector<int> distance(6, -1);
 
-	// Ã³À½ ½ÃÀÛÁöÁ¡À¸·Î ÃÊ±âÈ­
+	// ì²˜ìŒ ì‹œì‘ì§€ì ìœ¼ë¡œ ì´ˆê¸°í™”
 	queue<int> q;
 	q.push(here);
 	discovered[here] = true;
@@ -67,18 +67,18 @@ void Bfs(int here)
 
 		cout << "Visited : " << here << endl;
 
-		////ÀÎÁ¢¸®½ºÆ®
+		////ì¸ì ‘ë¦¬ìŠ¤íŠ¸
 		//for (int there : adjacent[here])
 		//{
 		//	if (discovered[there])
 		//		continue;
 		//	q.push(there);
 		//	discovered[there] = true;
-		//	parent[there] = here;	// °æ·Î¸¦ ¿ªÃßÀû ÇÔÀ¸·Î¼­ ±×·¡ÇÁ¸¦ ±×¸±¼ö ÀÖ´Ù
+		//	parent[there] = here;	// ê²½ë¡œë¥¼ ì—­ì¶”ì  í•¨ìœ¼ë¡œì„œ ê·¸ë˜í”„ë¥¼ ê·¸ë¦´ìˆ˜ ìˆë‹¤
 		//	distance[there] = distance[here] + 1;
 		//}
 
-		// ÀÎÁ¢Çà·Ä
+		// ì¸ì ‘í–‰ë ¬
 		for (int there = 0; there < 6; there++)
 		{
 			if (adjacent[here][there] == 0)
@@ -89,7 +89,7 @@ void Bfs(int here)
 			q.push(there);
 			discovered[there] = true;
 
-			parent[there] = here;	// °æ·Î¸¦ ¿ªÃßÀû ÇÔÀ¸·Î¼­ ±×·¡ÇÁ¸¦ ±×¸±¼ö ÀÖ´Ù
+			parent[there] = here;	// ê²½ë¡œë¥¼ ì—­ì¶”ì  í•¨ìœ¼ë¡œì„œ ê·¸ë˜í”„ë¥¼ ê·¸ë¦´ìˆ˜ ìˆë‹¤
 			distance[there] = distance[here] + 1;
 		}
 	}
