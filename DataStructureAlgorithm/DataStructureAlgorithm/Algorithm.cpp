@@ -69,6 +69,90 @@ void InsertionSort(vector<int>& v)
 		}
 	}
 }
+
+// 힙 정렬
+void HeapSort(vector<int>& v)
+{
+	priority_queue<int, vector<int>, greater<int>> pq;
+
+	// O(NlogN)
+	for (int num : v)
+		pq.push(num);
+
+	v.clear();
+
+	// O(NlogN)0
+	while (pq.empty() == false)
+	{
+		v.push_back(pq.top());
+		pq.pop();
+	}
+}
+// 병합 정렬
+// 분할 정복(Divide and Conquer)
+// - 분할(Divide)	문제를 더 단순하게 분할
+// - 정복(Conquer)	분할된 문제를 해결
+// - 결합(Combine)	결과를 취합하여 마무리
+
+// [3][k][7][2][j][4][8][9]
+// [3][k][7][2]   [j][4][8][9]
+// [2][3][7][k]   [4][8][9][j]
+// [2][3][7][k]   [4][8][9][j]
+
+void MergeResult(vector<int>& v, int left, int mid, int right)
+{
+	int leftIdx = left;
+	int rightIdx = mid + 1;
+
+	vector<int> temp;
+	
+	while (leftIdx <= mid && rightIdx <= right)
+	{
+		if (v[leftIdx] <= v[rightIdx])
+		{
+			temp.push_back(v[leftIdx]);
+			leftIdx++;
+		}
+		else
+		{
+			temp.push_back(v[rightIdx]);
+			rightIdx++;
+		}
+	}
+	// 왼쪽이 먼저 끝났으면, 오른쪽 나머지 데이터복사
+	if (leftIdx > mid)
+	{
+		while (rightIdx <= right)
+		{
+			temp.push_back(v[rightIdx]);
+			rightIdx++;
+		}
+	}
+	else
+	{
+		while (leftIdx <= mid)
+		{
+			temp.push_back(v[leftIdx]);
+			leftIdx++;
+		}
+	}
+	for (int i = 0; i < temp.size(); i++)
+	{
+		v[left + i] = temp[i];
+	}
+}
+void MergeSort(vector<int>& v, int left, int right)
+{
+	if (left >= right)
+		return;
+
+	int mid = (left + right) / 2;
+	MergeSort(v, left, mid);
+	MergeSort(v, mid + 1, right);
+
+	MergeResult(v, left, mid, right);
+}
+
 int main()
 {
 #pragma region  redblacktree
@@ -97,18 +181,19 @@ int main()
 	//bst.Print();
 	//this_thread::sleep_for(1s);
 #pragma endregion
-	vector<int> v{ 1, 5, 3, 4, 2 };
+	vector<int> v;
 
+	srand(time(0));
 
-	InsertionSort(v);
-
-	int x = 3;
-
-}
-=======
-	bst.Delete(10);
-	bst.Print();
-	this_thread::sleep_for(1s);
+	for (int i = 0; i < 50; i++)
+	{
+		int randValue = rand() % 100;
+		v.push_back(randValue);
+	}
 	
+	//InsertionSort(v);
+
+	MergeSort(v, 0, v.size() - 1);
+	int x;
 }
->>>>>>> 38dfa572f2d421dc7ca22ee996534620adc76220
+
