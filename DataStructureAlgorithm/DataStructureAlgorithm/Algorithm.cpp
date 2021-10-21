@@ -70,6 +70,7 @@ void InsertionSort(vector<int>& v)
 	}
 }
 
+
 // Èü Á¤·Ä
 void HeapSort(vector<int>& v)
 {
@@ -77,11 +78,12 @@ void HeapSort(vector<int>& v)
 
 	// O(NlogN)
 	for (int num : v)
+		// O(logN)
 		pq.push(num);
 
 	v.clear();
 
-	// O(NlogN)0
+	// O(NlogN)
 	while (pq.empty() == false)
 	{
 		v.push_back(pq.top());
@@ -195,5 +197,7 @@ int main()
 
 	MergeSort(v, 0, v.size() - 1);
 	int x;
+
+
 }
 
