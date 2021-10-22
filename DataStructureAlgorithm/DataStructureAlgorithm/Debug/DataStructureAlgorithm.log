@@ -1,5 +1,5 @@
 ﻿  Algorithm.cpp
-D:\GitData\DataStructure\DataStructureAlgorithm\DataStructureAlgorithm\Algorithm.cpp(139,20): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-D:\GitData\DataStructure\DataStructureAlgorithm\DataStructureAlgorithm\Algorithm.cpp(186,12): warning C4244: '인수': 'time_t'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\GitData\DataStructure\DataStructureAlgorithm\DataStructureAlgorithm\Algorithm.cpp(197,6): warning C4101: 'x' :참조되지 않은 지역 변수입니다.
+D:\GitData\DataStructure\DataStructureAlgorithm\DataStructureAlgorithm\Algorithm.cpp(141,20): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+D:\GitData\DataStructure\DataStructureAlgorithm\DataStructureAlgorithm\Algorithm.cpp(219,12): warning C4244: '인수': 'time_t'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\GitData\DataStructure\DataStructureAlgorithm\DataStructureAlgorithm\Algorithm.cpp(230,6): warning C4101: 'x' :참조되지 않은 지역 변수입니다.
   DataStructureAlgorithm.vcxproj -> D:\GitData\DataStructure\DataStructureAlgorithm\Debug\DataStructureAlgorithm.exe

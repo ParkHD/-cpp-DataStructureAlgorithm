@@ -154,7 +154,42 @@ void MergeSort(vector<int>& v, int left, int right)
 
 	MergeResult(v, left, mid, right);
 }
+//[5][1][3][7][9][2][4][6][8]
+int Partition(vector<int>& v, int left, int right)
+{
+	int pivot = v[left];
+	int low = left + 1;
+	int high = right;
 
+	// O(N)
+	// low가 high랑 교차될때까지
+	while (low <= high)
+	{
+		// pivot값보다 v[low]가 큰값을 찾을 때까지 
+		while (low <= right && pivot >= v[low])
+			low++;
+		// pivot을 제외한 유효값 -> left + 1
+		while (high >= left + 1 && pivot <= v[high])
+			high--;
+
+		if (low < high)
+			swap(v[low], v[high]);
+	}
+	// pivot을 v[high]랑 스왑
+	swap(v[left], v[high]);
+	return high;
+}
+void QuickSort(vector<int>& v, int left, int right)
+{
+	if (left >= right)
+		return;
+
+	// pivot 은 정렬 완료
+	int pivot = Partition(v, left, right);
+	// pivot기준으로 양 옆 다시 정렬
+	QuickSort(v, left, pivot - 1);
+	QuickSort(v, pivot + 1, right);
+}
 int main()
 {
 #pragma region  redblacktree
@@ -195,7 +230,7 @@ int main()
 	
 	//InsertionSort(v);
 
-	MergeSort(v, 0, v.size() - 1);
+	QuickSort(v, 0, v.size() - 1);
 	int x;
 
 
