@@ -8,187 +8,261 @@ using namespace std;
 #include "RedBlackTree.h"
 #include <thread>
 
-// 시간복잡도 n^2
-void BubbleSort(vector<int>& v)
-{
-	const int n = (int)v.size();
+// 해시 테이블
+// map : Red-Black Tree
+// - 추가 탐색 삭제 O(logN)
 
-	for (int i = 0; i < n - 1; i++)
+// C# dictionary = C++ unordered_map
+
+// Hash_map ( unordered_map)
+// - 추가 탐색 삭제 O(1) ㄷㄷ;;
+// 메모리를 내주고 속도를 취한다. 충돌이 일어나지 않는다는 가정하에 ㅈㄴ 빠르당
+
+// 아파트 우편함
+// [201][202][203][204][205][]
+// [101][102][103][104][105][]
+
+// 1 ~ 1000 user(userID = 1 ~ 999)
+void TestTable()
+{
+	struct User
 	{
-		for (int j = 0; j < (n - 1 - i); j++)
-		{
-			if (v[j] > v[j + 1])
-			{
-				int temp = v[j];
-				v[j] = v[j + 1];
-				v[j + 1] = temp;
-			}
-		}
-	}
-}
-// 선택 정렬
-void SelectionSort(vector<int>& v)
-{
-	const int n = (int)v.size();
+		int userId = 0;
+		string username;
+	};
+	vector<User> users;
+	users.resize(1000);
 
-	for (int i = 0; i < n - 1; i++)
+	users[777] = User{ 777, "Rookiss" };
+
+	string name = users[777].username;
+	cout << name << endl;
+
+	// 테이블
+	// 키를 알면 데이터를 한번에 알 수 있다.
+}
+void TestHash()
+{
+	// 충돌 문제
+	// - 선형 조사법
+	// 	   충돌 시 hash(key) + 1 접근 한칸씩 밀어서 접근
+	// - 이차 조사법
+	//	   선형으로 하면 데이터가 몰릴수 있으니까 +1 이 아니라 + 1^2 -> + 2^2..
+}
+void TestHashTableChaining()
+{
+	struct User
 	{
-		int bestIdx = i;
-		for (int j = i + 1; j < n - 1; j++)
-		{
-			if (v[j] < v[bestIdx])
-				bestIdx = j;
-		}
+		int userId = 0;
+		string username;
+	};
+	vector<vector<User>> users;
+	users.resize(1000);
 
-		int temp = v[i];
-		v[i] = v[bestIdx];
-		v[bestIdx] = temp;
-	}
-}
+	const int userId = 12345566;
+	int key = (userId % 1000);
 
-// !!삽입정렬 중요!!
-void InsertionSort(vector<int>& v)
-{
-	const int n = (int)v.size();
-
-	for (int i = 1; i < n; i++)
-	{
-		int insertData = v[i];
-		for (int j = i - 1; j >= 0; j--)
-		{
-			if (v[j] > insertData)
-			{
-				v[j+1] = v[j];
-			}
-			else
-			{
-				v[j + 1] = insertData;
-				break;
-			}
-
-		}
-	}
-}
-
-
-// 힙 정렬
-void HeapSort(vector<int>& v)
-{
-	priority_queue<int, vector<int>, greater<int>> pq;
-
-	// O(NlogN)
-	for (int num : v)
-		// O(logN)
-		pq.push(num);
-
-	v.clear();
-
-	// O(NlogN)
-	while (pq.empty() == false)
-	{
-		v.push_back(pq.top());
-		pq.pop();
-	}
-}
-// 병합 정렬
-// 분할 정복(Divide and Conquer)
-// - 분할(Divide)	문제를 더 단순하게 분할
-// - 정복(Conquer)	분할된 문제를 해결
-// - 결합(Combine)	결과를 취합하여 마무리
-
-// [3][k][7][2][j][4][8][9]
-// [3][k][7][2]   [j][4][8][9]
-// [2][3][7][k]   [4][8][9][j]
-// [2][3][7][k]   [4][8][9][j]
-
-void MergeResult(vector<int>& v, int left, int mid, int right)
-{
-	int leftIdx = left;
-	int rightIdx = mid + 1;
-
-	vector<int> temp;
+	users[key].push_back(User{ userId, "Rookiss" });
 	
-	while (leftIdx <= mid && rightIdx <= right)
+	vector<User>& bucket = users[key];
+	for (User& user : bucket)
 	{
-		if (v[leftIdx] <= v[rightIdx])
+		if (user.userId == userId)
 		{
-			temp.push_back(v[leftIdx]);
-			leftIdx++;
+			string name = user.username;
+			cout << name << endl;
 		}
-		else
-		{
-			temp.push_back(v[rightIdx]);
-			rightIdx++;
-		}
-	}
-	// 왼쪽이 먼저 끝났으면, 오른쪽 나머지 데이터복사
-	if (leftIdx > mid)
-	{
-		while (rightIdx <= right)
-		{
-			temp.push_back(v[rightIdx]);
-			rightIdx++;
-		}
-	}
-	else
-	{
-		while (leftIdx <= mid)
-		{
-			temp.push_back(v[leftIdx]);
-			leftIdx++;
-		}
-	}
-	for (int i = 0; i < temp.size(); i++)
-	{
-		v[left + i] = temp[i];
 	}
 }
-void MergeSort(vector<int>& v, int left, int right)
+
+// 그래프/트리 으용
+// 최소스패닝 트리 (Minimum Spanning Tree)
+
+// 상호 배타적 집합(Disjoint Set)
+// -> 유니온 파인드 Union_Find
+
+// Lineage Battleground (혼종!)
+// 혈맹전 + 서바이벌
+// 1인팀 1000명(팀id 0~999)
+// 동맹(1번팀 <-> 2번팀)
+void LineageBattleground()
 {
-	if (left >= right)
-		return;
-
-	int mid = (left + right) / 2;
-	MergeSort(v, left, mid);
-	MergeSort(v, mid + 1, right);
-
-	MergeResult(v, left, mid, right);
-}
-//[5][1][3][7][9][2][4][6][8]
-int Partition(vector<int>& v, int left, int right)
-{
-	int pivot = v[left];
-	int low = left + 1;
-	int high = right;
-
-	// O(N)
-	// low가 high랑 교차될때까지
-	while (low <= high)
+	struct User
 	{
-		// pivot값보다 v[low]가 큰값을 찾을 때까지 
-		while (low <= right && pivot >= v[low])
-			low++;
-		// pivot을 제외한 유효값 -> left + 1
-		while (high >= left + 1 && pivot <= v[high])
-			high--;
+		int teamId;
 
-		if (low < high)
-			swap(v[low], v[high]);
+	};
+	vector<User> users;
+	for (int i = 0; i < 1000; i++)
+	{
+		users.push_back(User{ i });
 	}
-	// pivot을 v[high]랑 스왑
-	swap(v[left], v[high]);
-	return high;
-}
-void QuickSort(vector<int>& v, int left, int right)
-{
-	if (left >= right)
-		return;
 
-	// pivot 은 정렬 완료
-	int pivot = Partition(v, left, right);
-	// pivot기준으로 양 옆 다시 정렬
-	QuickSort(v, left, pivot - 1);
-	QuickSort(v, pivot + 1, right);
+	// 팀 동맹
+	// users[1] <-> users[5]
+	users[5].teamId = users[1].teamId;
+	
+	for (User& user : users)
+	{
+		// 
+		if (user.teamId == 1)
+			user.teamId = 2;
+	}
+}
+
+// 트리구조를 이용한 상호 배타적 집합의 표현
+// [0][1][2][3][4]
+
+
+//struct Node 
+//{
+//	Node* leader;
+//};
+
+
+class NaiveDisjointSet
+{
+public:
+	NaiveDisjointSet(int n) : _parent(n)
+	{
+		for (int i = 0; i < n; i++)
+			_parent[i] = i;
+	}
+	int Find(int u)
+	{
+		if (u == _parent[u])
+			return u;
+		return Find(_parent[u]);
+	}
+	void Merge(int u, int v)
+	{
+		u = Find(u);
+		v = Find(v);
+
+		if (u == v)
+			return;
+
+		_parent[u] = v;
+	}
+private:
+	vector<int> _parent;
+};
+
+// 트리가 한쪽으로 기우는 문제를 해결
+// 트리를 합칠 때 항상 높이가 낮은 트리를 높이가 높은 트리 밑으로
+// Union By Rank 랭크에 의한 합치기 최적화 
+// O(1)
+class DisjointSet
+{
+public:
+	DisjointSet(int n) : _parent(n), _rank(n, 1)
+	{
+		for (int i = 0; i < n; i++)
+			_parent[i] = i;
+	}
+	// 경로압축
+	int Find(int u)
+	{
+		if (u == _parent[u])
+			return u;
+
+		return _parent[u] = Find(_parent[u]);
+	}
+	// Union by rank
+	void Merge(int u, int v)
+	{
+		u = Find(u);
+		v = Find(v);
+
+		if (u == v)
+			return;
+
+		if (_rank[u] > _rank[v])
+			swap(u, v);
+		// rank[u] <= rank[v] 보장됨
+
+		_parent[u] = v;
+
+		// [1]	     [3]         [3]
+		// [2] +  [4][5]  ->  [4][5][1]
+		// [6]       [0]         [0][2]
+		//		                    [6]
+		if (_rank[u] == _rank[v])
+			_rank[v]++;
+	}
+private:
+	vector<int> _parent;	// 집합의 대표(head)
+	vector<int> _rank;		// 트리의 높이
+};
+struct Vertex
+{
+	
+};
+vector<Vertex> vertices;
+vector<vector<int>> adjacent; // 인접 행렬
+
+void CreateGraph()
+{
+	vertices.resize(6);
+	adjacent = vector<vector<int>>(6, vector<int>(6, -1));
+
+	adjacent[0][1] = adjacent[1][0] = 15;
+	adjacent[0][3] = adjacent[3][0] = 35;
+	adjacent[1][2] = adjacent[2][1] = 5;
+	adjacent[1][3] = adjacent[3][1] = 10;
+	adjacent[3][4] = adjacent[4][3] = 5;
+	adjacent[3][5] = adjacent[5][3] = 10;
+	adjacent[5][4] = adjacent[4][5] = 5;
+}
+struct CostEdge
+{
+	int cost;
+	int u;
+	int v;
+
+	bool operator<(CostEdge& other)
+	{
+		return cost < other.cost;
+	}
+};
+int Kruskal(vector<CostEdge>& selected)
+{
+	int ret = 0;
+
+	selected.clear();
+
+	vector<CostEdge> edges;
+
+	for (int u = 0; u < adjacent.size(); u++)
+	{
+		for (int v = 0; v < adjacent[u].size(); v++)
+		{
+			if (u > v)
+				continue;
+
+			int cost = adjacent[u][v];
+			if (cost == -1)
+				continue;
+
+			edges.push_back(CostEdge{ cost, u, v });
+		}
+	}
+
+	std::sort(edges.begin(), edges.end());
+
+	DisjointSet sets(vertices.size());
+
+	for (CostEdge& edge : edges)
+	{
+		if (sets.Find(edge.u) == sets.Find(edge.v))
+			continue;
+
+		sets.Merge(edge.u, edge.v);
+		selected.push_back(edge);
+		ret += edge.cost;
+	}
+
+	return ret;
 }
 int main()
 {
@@ -218,20 +292,11 @@ int main()
 	//bst.Print();
 	//this_thread::sleep_for(1s);
 #pragma endregion
-	vector<int> v;
 
-	srand(time(0));
+	CreateGraph();
 
-	for (int i = 0; i < 50; i++)
-	{
-		int randValue = rand() % 100;
-		v.push_back(randValue);
-	}
-	
-	//InsertionSort(v);
-
-	QuickSort(v, 0, v.size() - 1);
-	int x;
+	vector<CostEdge> selected;
+	int cost = Kruskal(selected);
 
 
 }

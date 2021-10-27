@@ -65,5 +65,8 @@
     <ClInclude Include="RedBlackTree.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Sorting.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
