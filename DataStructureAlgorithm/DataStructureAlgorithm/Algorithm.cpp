@@ -7,6 +7,7 @@
 using namespace std;
 #include "RedBlackTree.h"
 #include <thread>
+#include <Windows.h>
 
 // 해시 테이블
 // map : Red-Black Tree
@@ -233,6 +234,7 @@ int Kruskal(vector<CostEdge>& selected)
 
 	vector<CostEdge> edges;
 
+	// 유효한 간선만 edges에 넣기
 	for (int u = 0; u < adjacent.size(); u++)
 	{
 		for (int v = 0; v < adjacent[u].size(); v++)
@@ -264,40 +266,194 @@ int Kruskal(vector<CostEdge>& selected)
 
 	return ret;
 }
+// 메모이제이션(memoization)
+int cache[50][50];
+
+int combination(int n, int r)
+{
+	// 기저사례
+	if (r == 0 || n == r)
+		return 1;
+	// 이미 답을 구한적 있으면 바로 반환
+	int& ret = cache[n][r];
+	if (ret != -1)
+		return ret;
+	// 새로 답을 구해서 캐시에 저장
+
+	return ret = combination(n - 1, r - 1) + combination(n - 1, r);
+}
+// LIS(Longest Increasing Sequence)
+// Seq : 1, 9, 2, 5, 7
+// 부분수열 : 일부숫자를 지우고 남은 수열
+// ex) 1,2,5 
+// ex) 1,9,5,7
+// 순 증가 부분수열
+// ex) 1 2 5
+
+// LIS : 제일 긴 순 증가 부분 수열의 길이 
+// 1 2 5 7 = 길이 4
+int cache_LIS[100];
+vector<int> seq;
+int LIS(int pos)
+{
+	// 기저사항
+	
+	// 캐시확인
+	int& ret = cache_LIS[pos];
+	if (ret != -1)
+		return ret;
+	// 구하기
+	// Seq : 1 9 2 5 7
+	ret = 1; // 최소 1
+
+	for (int i = pos + 1; i < seq.size(); i++)
+	{
+		if (seq[pos] < seq[i])
+		{
+			ret = max(ret, 1 + LIS(i));
+		}
+	}
+
+	return ret;
+}
+int N;
+vector<vector<int>> board;
+vector<vector<int>> cache_path;
+vector<vector<int>> nextX;
+int path(int y, int x)
+{
+	// 기저사항
+	if (y == N)
+		return 0;
+	// 캐시 확인
+	int& ret = cache_path[y][x];
+	if (ret != -1)
+		return ret;
+	// 적용
+	// 경로확인
+	{
+		int nextBottom = path(y + 1, x);
+		int nextBottomRight = path(y + 1, x + 1);
+
+		if (nextBottom > nextBottomRight)
+			nextX[y][x] = x;
+		else
+			nextX[y][x] = x + 1;
+	}
+	return ret = board[y][x] + max(path(y + 1, x), path(y + 1, x + 1));
+}
+
+
+int HashKey(const vector<vector<char>>& board)
+{
+	int ret = 0;
+	for (int y = 0; y < 3; y++)
+	{
+		for (int x = 0; x < 3; x++)
+		{
+			ret = ret * 3;
+
+			if (board[y][x] == 'o')
+				ret += 1;
+			else if (board[y][x] == 'x')
+				ret += 2;
+		}
+	}
+	return ret;
+}
+vector<vector<char>> Tboard;
+int Tcache[19683];
+enum
+{
+	DEFAULT = 2,
+	WIN = 1,
+	DRAW = 0,
+	LOSE = -1,
+};
+bool IsFinished(const vector<vector<char>>& board, char turn)
+{
+	// 좌우
+	for (int i = 0; i < 3; i++)
+	{
+		if (Tboard[i][0] == turn && board[i][1] == turn && board[i][2] == turn)
+			return true;
+	}
+	// 상하
+	for (int i = 0; i < 3; i++)
+	{
+		if (Tboard[0][i] == turn && board[1][i] == turn && board[2][i] == turn)
+			return true;
+	}
+	// 대각선
+	if (Tboard[0][0] == turn && board[1][1] == turn && board[2][2] == turn)
+		return true;
+	if (Tboard[0][2] == turn && board[1][1] == turn && board[2][0] == turn)
+		return true;
+
+	return false;
+}
+int CanWin(vector<vector<char>>& board, char turn)
+{
+	// 기저사항
+	if (IsFinished(board, 'o' + 'x' - turn))
+	{
+		return LOSE;
+	}
+	// 캐시 확인
+	int key = HashKey(board);
+	int& ret = Tcache[key];
+	if (ret != DEFAULT)
+		return ret;
+	
+	// 풀기
+	int minValue = DEFAULT;
+	for (int y = 0; y < 3; y++)
+	{
+		for (int x = 0; x < 3; x++)
+		{
+			// 이미 공간에 착수 되어 있다
+			if (board[y][x] != '.')
+				continue;
+
+			// 착수
+			board[y][x] = turn;
+
+			// 확인
+			minValue = min(minValue, CanWin(board, 'o' + 'x' - turn));
+
+			// 취소
+			board[y][x] = '.';
+		}
+	}
+	if (minValue == DRAW || minValue == DEFAULT)
+		return ret = DRAW;
+
+	return ret = -minValue;
+}
 int main()
 {
-#pragma region  redblacktree
-	//RedBlackTree bst;
-	//bst.Insert(30);
-	//bst.Print();
-	//this_thread::sleep_for(1s);
+	Tboard = vector<vector<char>>
+	{
+		{'.', '.', '.'},
+		{'.', '.', '.'},
+		{'.', '.', '.'}
+	};
+	for (int i = 0; i < 19683; i++)
+		Tcache[i] = DEFAULT;
 
-	//bst.Insert(10);
-	//bst.Print();
-	//this_thread::sleep_for(1s);
+	int win = CanWin(Tboard, 'o');
 
-	//bst.Insert(20);
-	//bst.Print();
-	//this_thread::sleep_for(1s);
-
-	//bst.Insert(25);
-	//bst.Print();
-	//this_thread::sleep_for(1s);
-
-	//bst.Delete(20);
-	//bst.Print();
-	//this_thread::sleep_for(1s);
-
-	//bst.Delete(10);
-	//bst.Print();
-	//this_thread::sleep_for(1s);
-#pragma endregion
-
-	CreateGraph();
-
-	vector<CostEdge> selected;
-	int cost = Kruskal(selected);
-
-
+	switch (win)
+	{
+	case WIN :
+		cout << "WIN" << endl;
+		break;
+	case DRAW :
+		cout << "DRAW" << endl;
+		break;
+	case LOSE :
+		cout << "LOSE" << endl;
+		break;
+	}
 }
 

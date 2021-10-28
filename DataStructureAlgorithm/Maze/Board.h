@@ -14,6 +14,7 @@ enum class TileType
 	EMPTY,
 	WALL,
 };
+
 class Board
 {
 public:
@@ -24,6 +25,7 @@ public:
 	void Render();
 
 	void GenerateMap();
+	void GenerateMap_Prim();
 	TileType GetTileType(Pos pos);
 	ConsoleColor GetTileColor(Pos pos);
 
