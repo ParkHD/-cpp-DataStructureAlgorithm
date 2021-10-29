@@ -430,30 +430,54 @@ int CanWin(vector<vector<char>>& board, char turn)
 
 	return ret = -minValue;
 }
+int EnchantN;
+int cache_ENCHANT[100];
+int Enchant(int num)
+{
+	if (num > EnchantN)
+		return 0;
+	if (num == EnchantN)
+		return 1;
+
+	int& ret = cache_ENCHANT[num];
+	if (ret != -1)
+		return ret;
+	
+	return ret = Enchant(num + 1) + Enchant(num + 2) + Enchant(num + 3);
+}
+
+struct Shoe
+{
+	Shoe(int a, int b, int c, int d)
+	{
+		time = a;
+		start = a + b;
+		end = a + b + c;
+		speed = d;
+	}
+	int time;	// a 신발 스폰시간
+	int start;	// a + b  신발 효과 시작 시간
+	int end;	// a + b + c 신발 효과 끝나는 시간
+	int speed;	// d 신발 속도
+};
+
+int T;
+vector<Shoe> shoes;
+vector<int> cache_RIDER;
+int Solve()
+{
+
+}
 int main()
 {
-	Tboard = vector<vector<char>>
-	{
-		{'.', '.', '.'},
-		{'.', '.', '.'},
-		{'.', '.', '.'}
-	};
-	for (int i = 0; i < 19683; i++)
-		Tcache[i] = DEFAULT;
+	// 총 이동 시간
+	T = 20;
 
-	int win = CanWin(Tboard, 'o');
-
-	switch (win)
-	{
-	case WIN :
-		cout << "WIN" << endl;
-		break;
-	case DRAW :
-		cout << "DRAW" << endl;
-		break;
-	case LOSE :
-		cout << "LOSE" << endl;
-		break;
-	}
+	// 시간 별로 생성되는 신발 등록
+	shoes.push_back(Shoe(3, 4, 10, 3));
+	shoes.push_back(Shoe(4, 1, 4, 2));
+	shoes.push_back(Shoe(10, 2, 5, 5));
+	shoes.push_back(Shoe(15, 1, 3, 7));
+	std::sort(shoes.begin(), shoes.end(), [=](Shoe& left, Shoe& right) {return left.time < right.time; });
 }
 

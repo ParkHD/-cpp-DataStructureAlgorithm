@@ -1,5 +1,5 @@
 ﻿  Algorithm.cpp
-C:\GIt\DataStructureAlgorithm\DataStructureAlgorithm\Algorithm.cpp(238,20): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-C:\GIt\DataStructureAlgorithm\DataStructureAlgorithm\Algorithm.cpp(240,21): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-C:\GIt\DataStructureAlgorithm\DataStructureAlgorithm\Algorithm.cpp(309,26): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-  DataStructureAlgorithm.vcxproj -> C:\GIt\DataStructureAlgorithm\Debug\DataStructureAlgorithm.exe
+D:\GitData\DataStructure\DataStructureAlgorithm\DataStructureAlgorithm\Algorithm.cpp(238,20): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+D:\GitData\DataStructure\DataStructureAlgorithm\DataStructureAlgorithm\Algorithm.cpp(240,21): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+D:\GitData\DataStructure\DataStructureAlgorithm\DataStructureAlgorithm\Algorithm.cpp(309,26): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  DataStructureAlgorithm.vcxproj -> D:\GitData\DataStructure\DataStructureAlgorithm\Debug\DataStructureAlgorithm.exe
